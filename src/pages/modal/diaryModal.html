@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Diary Editor
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Title</ion-label>
+      <ion-input type="text" [(ngModel)]="diaryObject.title"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Detial</ion-label>
+      <ion-textarea [(ngModel)]="diaryObject.detail"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>Image</ion-label>
+      <ion-label>
+       <input type="file" class="bottom-marg-15" st  (change)="getImagem($event, imagem)">
+      </ion-label>
+    </ion-item>
+
+   
+  </ion-list>
+  <button ion-button block (click)="onSave()">Save</button>
+  <button ion-button block outline (click)="onCancel()">Cancel</button>
+</ion-content>

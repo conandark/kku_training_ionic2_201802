@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Diary
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let item of diaryObjects" (click)="showDialog(item)">
+    <ion-card-header>
+      {{item.title}}
+    </ion-card-header>
+    <ion-card-content>
+      <ion-img *ngIf="item.image != null && item.image"  src="{{diaryapiBaseURL}}{{item.image}}"></ion-img>
+      <div style="clear-both"></div>
+      {{item.detail}}
+    </ion-card-content>
+  </ion-card>
+  <ion-fab bottom right>
+    <button ion-fab (click)="newDiary()">+</button>
+  </ion-fab>
+</ion-content>
