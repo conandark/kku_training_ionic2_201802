@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { BaseService } from '../../service/baseService';
 import { DiaryObject, SavingRequest } from '../../service/baseObject';
-import { ModalController } from 'ionic-angular';
+import { ModalController, AlertController } from 'ionic-angular';
 import { DiaryModal } from '../modal/diaryModal';
+import { HomePage } from '../home/home';
 
 @Component({
     selector: 'page-diary',
@@ -14,11 +15,12 @@ export class DiaryPage {
 
     diaryObjects: DiaryObject[] = [];
     diaryObject: DiaryObject;
-    diaryapiBaseURL:string = "http://127.0.0.1/ionicAPI/ionicAPI/";
+    diaryapiBaseURL: string = "http://127.0.0.1/ionicAPI/ionicAPI/";
 
 
-    constructor(public navCtrl: NavController, private baseService: BaseService, public modalCtrl: ModalController) {
+    constructor(public navCtrl: NavController, private baseService: BaseService, public modalCtrl: ModalController, private alertCtrl: AlertController) {
         this.getData();
+        //this.navCtrl.push(HomePage);
     }
 
     getData() {
@@ -55,8 +57,31 @@ export class DiaryPage {
         let req: SavingRequest = new SavingRequest();
         req.diary_id = item.diary_id;
         this.baseService.deleteData(req).then(resData => {
-            this.baseService.getData();
+            this.getData();
         });
+    }
+
+    presentConfirm(item: DiaryObject) {
+        let alert = this.alertCtrl.create({
+            title: 'Confirm delete',
+            message: 'Do you want to delete this diary ?',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Delete',
+                    handler: () => {
+                        this.deleteData(item);
+                    }
+                }
+            ]
+        });
+        alert.present();
     }
 
 

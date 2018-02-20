@@ -7,14 +7,29 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let item of diaryObjects" (click)="showDialog(item)">
+  <ion-card *ngFor="let item of diaryObjects">
     <ion-card-header>
       {{item.title}}
     </ion-card-header>
     <ion-card-content>
-      <ion-img *ngIf="item.image != null && item.image"  src="{{diaryapiBaseURL}}{{item.image}}"></ion-img>
+      <img style="height:42px;width:42px" *ngIf="item.image != null && item.image" src="{{diaryapiBaseURL}}{{item.image}}" />
       <div style="clear-both"></div>
       {{item.detail}}
+
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-left clear small (click)="showDialog(item)">
+        <ion-icon name="ios-paper"></ion-icon>
+        <div>Edit</div>
+      </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-left clear small (click)="presentConfirm(item)">
+        <ion-icon name="remove-circle"></ion-icon>
+        <div>Remove</div>
+      </button>
+        </ion-col>
+      </ion-row>
     </ion-card-content>
   </ion-card>
   <ion-fab bottom right>
